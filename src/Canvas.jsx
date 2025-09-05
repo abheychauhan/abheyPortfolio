@@ -107,6 +107,7 @@ function Canvas() {
 
       if (width < 600) {
         modelRef.current.scale.set(0.4, 0.4, 0.4);
+        controls.enableRotate=false
       } else if (width < 1024) {
         modelRef.current.scale.set(0.7, 0.7, 0.7);
       } else {
