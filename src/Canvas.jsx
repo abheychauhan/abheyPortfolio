@@ -4,6 +4,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { div } from "three/tsl";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,6 +13,8 @@ function Canvas() {
   const modelRef = useRef();
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const isMobile = window.innerWidth < 600;
+
 
   useEffect(() => {
     // Loading manager
@@ -80,7 +83,6 @@ function Canvas() {
     controls.maxDistance = 100;
 
     // Detect mobile
-    const isMobile = window.innerWidth < 600;
     controls.enabled = !isMobile;
     canvas.style.touchAction = isMobile ? "pan-y" : "none";
 
@@ -219,7 +221,7 @@ function Canvas() {
     <div id="home">
       <div style={{ width: "100vw", height: "250vh" }}>
         {loading && (
-          <div className="fixed inset-0 flex flex-col items-center justify-center bg-[#ff861a] text-white z-[999]">
+          <div className="fixed inset-0 flex flex-col items-center justify-center bg-[#ff861a] text-white z-[99]">
             <p className="text-xl font-bold">Loading... {progress}%</p>
             <div className="w-64 h-2 bg-white/30 rounded mt-4">
               <div
@@ -229,6 +231,13 @@ function Canvas() {
             </div>
           </div>
         )}
+{isMobile && (
+  <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[1] text-[#ff861a] bg-zinc-200 rounded-xl w-fit flex items-center justify-center p-2">
+    <h1 className="text-sm mr-1">scroll</h1>
+    <h1><i className="ri-arrow-down-line text-xl"></i></h1>
+  </div>
+)}
+
         <canvas
           ref={canvasRef}
           className="canvas fixed block w-[100%] h-[250%]"

@@ -31,7 +31,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="relative home w-full  ">
+    <div className="relative home w-full z-[2] ">
       {/* Background overlay */}
       <div
         ref={bgRef}
