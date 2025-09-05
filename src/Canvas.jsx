@@ -158,7 +158,8 @@ function Canvas() {
 
       scene.add(model);
 
-      // GSAP scroll animation
+     if(!isMobile){
+            // GSAP scroll animation
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: ".wrap",
@@ -183,7 +184,9 @@ function Canvas() {
         1
       );
       timeline.to(modelRef.current.position, { x: 10, y: 6, z: -10, duration: 30 });
-    });
+   
+     }
+      });
 
     // Resize
     window.addEventListener("resize", () => {
@@ -198,6 +201,9 @@ function Canvas() {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
       ScrollTrigger.refresh();
+      if(!isMobile){
+        window.location.reload()
+      }
     });
 
     // Render loop
