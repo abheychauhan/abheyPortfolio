@@ -87,8 +87,10 @@ function Canvas() {
     const updateControls = () => {
   if (window.innerWidth < 600) {
     controls.enabled = false; // disable OrbitControls
+     canvas.style.touchAction = "pan-y"; 
   } else {
     controls.enabled = true; // enable OrbitControls
+     canvas.style.touchAction = "none"; 
   }
 };
 
