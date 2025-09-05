@@ -13,7 +13,7 @@ const Menu = () => {
                  },
                                  {
                   name:"in",
-                  link:"https://www.linkedin.com/in/abhey-singh172/",
+                  link:"https://github.com/abheychauhan",
                   icon:"ri-github-line"
 
                  }
