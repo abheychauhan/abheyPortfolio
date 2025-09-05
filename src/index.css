@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: JetBrains Mono ;
+}
+
+canvas {
+  display: block;
+}
+.tech , .heading{
+  font-weight:900;
+}
+.shadow-block {
+  box-shadow: 5px 3px 0px #525252a6; /* offset shadow */
+}
+.shadow-head {
+  box-shadow: 10px 10px 0px #525252a6; /* offset shadow */
+}
+.shadow {
+  box-shadow: 5px 3px 0px #ff851a85; /* offset shadow */
+}
