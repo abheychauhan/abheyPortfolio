@@ -4,19 +4,31 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Menu from "./components/Menu";
-import { textureLoad } from "three/src/nodes/TSL.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Canvas() {
   const canvasRef = useRef();
   const modelRef = useRef();
-  const [loading, setLoading] = useState(true); // ✅ loading state
-  const [progress, setProgress] = useState(0); // ✅ progress state
-
+  const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    // ✅ LoadingManager for both model + textures
+    const manager = new THREE.LoadingManager();
+
+    manager.onProgress = (url, itemsLoaded, itemsTotal) => {
+      const percent = (itemsLoaded / itemsTotal) * 100;
+      setProgress(Math.round(percent));
+    };
+
+    manager.onLoad = () => {
+      setLoading(false); // ✅ Hide loader only when all assets are done
+    };
+
+    const textureLoader = new THREE.TextureLoader(manager);
+    const gltfLoader = new GLTFLoader(manager);
+
     const scene = new THREE.Scene();
     scene.background = new THREE.Color("#ff861a");
 
@@ -38,6 +50,7 @@ function Canvas() {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
+    // Lights
     const dirLight = new THREE.DirectionalLight(0xffffff, 2.5);
     dirLight.position.set(90, 80, 50);
     dirLight.castShadow = true;
@@ -53,6 +66,7 @@ function Canvas() {
     scene.add(dirLight);
     scene.add(new THREE.AmbientLight(0xffffff, 0.6));
 
+    // Ground
     const ground = new THREE.Mesh(
       new THREE.PlaneGeometry(300, 300),
       new THREE.ShadowMaterial({ opacity: 0.23 })
@@ -62,6 +76,7 @@ function Canvas() {
     ground.receiveShadow = true;
     scene.add(ground);
 
+    // Controls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.enableZoom = false;
@@ -85,9 +100,7 @@ function Canvas() {
       });
     });
 
-
-
-
+    // Responsive scaling
     const applyResponsiveScale = () => {
       if (!modelRef.current) return;
       const width = window.innerWidth;
@@ -113,8 +126,8 @@ function Canvas() {
       }
     };
 
-    const loader = new GLTFLoader();
-    loader.load("/ibm_3278_terminal/scene.gltf", (gltf) => {
+    // ✅ Load model + texture
+    gltfLoader.load("/ibm_3278_terminal/scene.gltf", (gltf) => {
       const model = gltf.scene;
       modelRef.current = model;
 
@@ -123,26 +136,19 @@ function Canvas() {
 
       modelRef.current.rotation.y = -0.8;
 
-      const transparentMeshes = [];
-
       model.traverse((child) => {
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
 
-          if (child.material) {
-            child.material.transparent = true; // Ensure transparency is enabled
-            transparentMeshes.push(child.material);
-          }
-
           if (child.name === "ibm_3278_1") {
-            // Hide the original screen mesh so we don’t see the oval distortion
             child.visible = false;
 
-            const screenTexture = new THREE.TextureLoader().load("/profileImage.png")
+            // ✅ Use manager for texture
+            const screenTexture = textureLoader.load("/profileImage.png");
 
             const screenPlane = new THREE.Mesh(
-              new THREE.PlaneGeometry(4.4, 4.3), // adjust to fit your model’s screen
+              new THREE.PlaneGeometry(4.4, 4.3),
               new THREE.MeshPhysicalMaterial({
                 map: screenTexture,
                 emissive: new THREE.Color(0xffffff),
@@ -153,25 +159,23 @@ function Canvas() {
                 clearcoat: 1.0,
                 clearcoatRoughness: 0.05,
                 transparent: true,
-                side: THREE.DoubleSide
+                side: THREE.DoubleSide,
               })
             );
 
-            // Position + rotation so it aligns with the screen area
-            screenPlane.position.set(1.55, 0, 5.5); // tweak until it fits perfectly
-            screenPlane.rotation.y = Math.PI * .5
-            screenPlane.rotation.x = Math.PI * .5     // adjust tilt if needed
-            screenPlane.scale.setScalar(1.2)
-            child.parent.add(screenPlane); // attach to the model so it moves with it
-          }
+            screenPlane.position.set(1.55, 0, 5.5);
+            screenPlane.rotation.y = Math.PI * 0.5;
+            screenPlane.rotation.x = Math.PI * 0.5;
+            screenPlane.scale.setScalar(1.2);
 
+            child.parent.add(screenPlane);
+          }
         }
       });
 
-
       scene.add(model);
-      setLoading(false);
 
+      // GSAP scroll animation
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: ".wrap",
@@ -190,31 +194,24 @@ function Canvas() {
         ease: "power1.inOut",
         duration: 30,
       });
-      timeline.to(model.rotation, {
-        y: 4.8,
-        ease: "power1.inOut",
-        duration: 30,
-      }, 1);
+      timeline.to(
+        model.rotation,
+        {
+          y: 4.8,
+          ease: "power1.inOut",
+          duration: 30,
+        },
+        1
+      );
       timeline.to(modelRef.current.position, {
         x: 10,
         y: 6,
         z: -10,
-        duration: 30
+        duration: 30,
       });
-
-      (xhr) => {
-        if (xhr.total) {
-          const percent = (xhr.loaded / xhr.total) * 100;
-          setProgress(Math.round(percent));
-        }
-      },
-        // Error
-        (error) => {
-          console.error("Error loading model:", error);
-        }
-
     });
 
+    // Resize
     window.addEventListener("resize", () => {
       applyResponsiveScale();
 
@@ -227,15 +224,10 @@ function Canvas() {
       controls.update();
 
       ScrollTrigger.refresh();
-      setTimeout(() => {
-        window.location.reload();
-
-
-      }, 500);
     });
 
+    // Render loop
     const minX = 25;
-
     const renderLoop = () => {
       requestAnimationFrame(renderLoop);
       if (camera.position.x < minX) {
@@ -265,10 +257,12 @@ function Canvas() {
             </div>
           </div>
         )}
-        <canvas ref={canvasRef} className="canvas fixed block w-[100%] h-[250%]" />
+        <canvas
+          ref={canvasRef}
+          className="canvas fixed block w-[100%] h-[250%]"
+        />
         <div className="wrap z-[-1] w-[100%] h-[100%]"></div>
       </div>
-
     </div>
   );
 }
