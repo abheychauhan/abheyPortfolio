@@ -239,10 +239,7 @@ updateControls();
       
       ScrollTrigger.refresh();
 
-      setTimeout(() => {
-        window.location.reload()
-        
-      }, 10);
+
     });
 
     // Render loop
