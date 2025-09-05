@@ -83,6 +83,9 @@ function Canvas() {
     controls.minPolarAngle = Math.PI / 4;
     controls.maxPolarAngle = Math.PI / 2;
     controls.maxDistance = 100;
+    if (window.innerWidth < 600) {
+        controls.enableRotate=false
+      } 
 
     const startCameraPos = new THREE.Vector3();
     controls.addEventListener("start", () => {
@@ -107,7 +110,6 @@ function Canvas() {
 
       if (width < 600) {
         modelRef.current.scale.set(0.4, 0.4, 0.4);
-        controls.enableRotate=false
       } else if (width < 1024) {
         modelRef.current.scale.set(0.7, 0.7, 0.7);
       } else {
