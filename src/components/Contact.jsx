@@ -93,7 +93,7 @@ function Contact() {
 
         </div>
       </div>
-      <footer className="mt-30 text-center md:text-xl text-lg text-gray-800">
+      <footer className="mt-30 text-center md:text-xl text-lg text-gray-800 p-5">
         © {new Date().getFullYear()} Abhey Singh. All rights reserved.
       </footer>
 
