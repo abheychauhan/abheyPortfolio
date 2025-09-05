@@ -35,8 +35,7 @@ function Contact() {
            <p className="text-xl  text-center text-[#525252] mt-5">
             Let’s connect and build something amazing together!
           </p>
-
-      <div className="w-full flex items-start justify-evenly md:flex-nowrap flex-wrap mt-30">
+      <div className="w-full flex items-start justify-evenly gap-5 md:flex-nowrap flex-wrap mt-30">
         <div className="social w-fit flex flex-col gap-5">
           <h1 className='text-xl text-[#525252]'>Talk to me</h1>
           <div className="info grid gap-4">
