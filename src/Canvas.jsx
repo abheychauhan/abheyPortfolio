@@ -83,9 +83,17 @@ function Canvas() {
     controls.minPolarAngle = Math.PI / 4;
     controls.maxPolarAngle = Math.PI / 2;
     controls.maxDistance = 100;
-    if (window.innerWidth < 600) {
-        controls.enableRotate=false
-      } 
+    
+    const updateControls = () => {
+  if (window.innerWidth < 600) {
+    controls.enabled = false; // disable OrbitControls
+  } else {
+    controls.enabled = true; // enable OrbitControls
+  }
+};
+
+// Call on initial load
+updateControls();
 
     const startCameraPos = new THREE.Vector3();
     controls.addEventListener("start", () => {
@@ -224,14 +232,15 @@ function Canvas() {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
       camera.position.copy(initialCameraPos);
+      updateControls();
       controls.update();
-
+      
       ScrollTrigger.refresh();
 
       setTimeout(() => {
         window.location.reload()
         
-      }, 100);
+      }, 10);
     });
 
     // Render loop
