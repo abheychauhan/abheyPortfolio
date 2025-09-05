@@ -225,6 +225,11 @@ function Canvas() {
       controls.update();
 
       ScrollTrigger.refresh();
+
+      setTimeout(() => {
+        window.location.reload()
+        
+      }, 100);
     });
 
     // Render loop
