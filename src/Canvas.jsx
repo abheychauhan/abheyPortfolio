@@ -232,10 +232,10 @@ function Canvas() {
           </div>
         )}
 {isMobile && (
-  <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[1] text-[#ff861a] bg-zinc-200 rounded-xl w-fit flex items-center justify-center p-2">
+  <a href="#about"  className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[1] text-[#ff861a] bg-zinc-200 rounded-xl w-fit flex items-center justify-center p-2">
     <h1 className="text-sm mr-1">scroll</h1>
     <h1><i className="ri-arrow-down-line text-xl"></i></h1>
-  </div>
+  </a>
 )}
 
         <canvas
