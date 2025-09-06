@@ -159,7 +159,7 @@ function Home() {
         </div>
 
         {/* Contact Section */}
-          <div id="about" className="flex flex-col items-center justify-center py-10">
+          <div id="contact" className="flex flex-col items-center justify-center py-10">
           <h1 className="heading shadow-head text-3xl md:text-6xl font-bold w-fit h-fit text-[#ff861a] text-center bg-[#525252] p-2">
             Contact
           </h1>
