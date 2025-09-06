@@ -41,7 +41,7 @@ const Menu = () => {
   return (
     <div className="relative w-[100%] z-[9]  font-retro text-beige ">
       {/* Top Bar */}
-      <div className=" fixed w-fit flex items-center justify-center gap-1  p-4  pt-10 pl-10 z-[99]  ">
+      <div className=" fixed w-fit flex items-center justify-center gap-1  p-4  md:pt-10 md:pl-10 z-[99]  ">
         <button onClick={() => setIsOpen(!isOpen)}  className={`hover:scale-110 flex items-center  justify-center border  aspect-square w-10  text-2xl text-center  transition-colors duration-200 ease-in ${isOpen ? " shadow text-[#525252] border-[#525252] bg-[#FF861A]" :"border-[#FF861A] bg-[#525252] text-[#FF861A]"} shadow-block`}><i className="ri-menu-line"></i></button>
         {links.map((item,index)=>
             (
