@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import solar from "../assets/solar.png";
 import figma from "../assets/figma.png";
 import insta from "../assets/insta.png";
+import ecom from "../assets/ecom.png";
 import Contact from "./Contact";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -135,7 +136,7 @@ function Home() {
           <h1 className="md:text-2xl shadow-head text-lg font-bold w-fit h-fit text-[#ff861a] text-center bg-[#525252] mt-10 p-2">
             Instagram Clone
           </h1>
-          <div className="md:w-2/3 p-10 md:text-xl text-[#525252] font-bold text-justify flex flex-col gap-10 border-b-3 border-dashed border-[#525252]">
+          <div className="md:w-2/3 p-10 md:text-xl text-[#525252] font-bold text-justify flex flex-col gap-10">
             <p>
               I built a full-stack social media application inspired by Instagram, with features that enable real-time interaction and content sharing. The app supports user authentication, chatting, posts with images, likes, comments, and follow/unfollow functionality, along with a fully responsive UI for a smooth user experience.
             </p>
@@ -153,6 +154,31 @@ function Home() {
               <span className="tech font-semibold">Live-link : </span>
               <a href="https://insta-clone-nine-beta.vercel.app/" className="transform transition-transform duration-300 hover:scale-103 p-2 border-1 rounded-2xl">
                 <img src={insta} className="w-100 rounded-2xl" alt="" />
+              </a>
+            </div>
+          </div>
+          <div className="w-1/4 border-b-3 border-[#525252] border-dashed p-5"></div>
+
+          <h1 className="md:text-2xl shadow-head text-lg font-bold w-fit h-fit text-[#ff861a] text-center bg-[#525252] mt-10 p-2">
+            Ecommerce website
+          </h1>
+          <div className="md:w-2/3 p-10 md:text-xl text-[#525252] font-bold text-justify flex flex-col gap-10 border-b-3 border-dashed border-[#525252]">
+            <p>
+             A full-stack e-commerce application built with Next.js (App Router), MongoDB Atlas, and JWT Authentication.
+            </p>
+            <div className="flex items-center text-sm md:text-xl flex-wrap gap-2">
+              <span className="tech font-semibold">Tech Stack: </span>
+              <span className="p-2 rounded-xl border-1">React</span>
+              <span className="p-2 rounded-xl border-1 w-fit">Tailwind CSS</span>
+              <span className="p-2 rounded-xl border-1">Next.js</span>
+              <span className="p-2 rounded-xl border-1">MongoDB</span>
+              <span className="p-2 rounded-xl border-1">JWT , bcrypt</span>
+              <span className="p-2 rounded-xl border-1 w-fit">Vercel</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="tech font-semibold">Live-link : </span>
+              <a href="https://ecommerce-next-rust-nine.vercel.app/" className="transform transition-transform duration-300 hover:scale-103 p-2 border-1 rounded-2xl">
+                <img src={ecom} className="w-100 rounded-2xl" alt="" />
               </a>
             </div>
           </div>
