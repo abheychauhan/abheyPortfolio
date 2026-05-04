@@ -177,7 +177,7 @@ function Home() {
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <span className="tech font-semibold">Live-link : </span>
-              <a href="https://ecommerce-next-rust-nine.vercel.app/" className="transform transition-transform duration-300 hover:scale-103 p-2 border-1 rounded-2xl">
+              <a href="https://ecomerce-ashy-three.vercel.app/" className="transform transition-transform duration-300 hover:scale-103 p-2 border-1 rounded-2xl">
                 <img src={ecom} className="w-100 rounded-2xl" alt="" />
               </a>
             </div>
